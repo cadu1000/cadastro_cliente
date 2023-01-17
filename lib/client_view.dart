@@ -1,5 +1,4 @@
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/material.dart';
 
 class ClientView extends StatefulWidget {
   const ClientView({super.key});
@@ -11,6 +10,12 @@ class ClientView extends StatefulWidget {
 class _ClientViewState extends State<ClientView> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return const Scaffold(
+      body: Center(
+        child: Text(
+          "Lista de clientes",
+        ),
+      ),
+    );
   }
 }
