@@ -9,6 +9,7 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   get controle => TextEditingController();
+  final formkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -16,62 +17,71 @@ class _RegisterState extends State<Register> {
       appBar: AppBar(
         title: const Text("Cadastro de Cliente"),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: const [
-              CustomForm(
-                label: "Nome",
-                iconeform: Icons.person,
-                textoindicativo: "Digite o nome",
-              ),
-              SizedBox(height: 20),
-              CustomForm(
-                label: "Celular",
-                iconeform: Icons.phone_android,
-                textoindicativo: "Digite o celular (48999999999)",
-              ),
-              SizedBox(height: 20),
-              CustomForm(
-                label: "Endereço",
-                iconeform: Icons.home,
-                textoindicativo: "Digite o endereço completo",
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              CustomForm(
-                label: "Data de Nascimento",
-                iconeform: Icons.date_range,
-                textoindicativo: "Digite a data de nascimento",
-              ),
-              SizedBox(height: 30),
-              SizedBox(
-                width: double.infinity,
-                height: 40,
-                child: ElevatedButton(
-                  onPressed: null,
-                  child: Text(
-                    "Salvar",
-                    style: TextStyle(fontSize: 20),
+      body: Form(
+        key: formkey,
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+              //mainAxisAlignment: MainAxisAlignment.start,
+              //crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const CustomForm(
+                  label: "Nome",
+                  iconeform: Icons.person,
+                  textoindicativo: "Digite o nome",
+                ),
+                const SizedBox(height: 20),
+                const CustomForm(
+                  label: "Celular",
+                  iconeform: Icons.phone_android,
+                  textoindicativo: "Digite o celular (48999999999)",
+                ),
+                const SizedBox(height: 20),
+                const CustomForm(
+                  label: "Endereço",
+                  iconeform: Icons.home,
+                  textoindicativo: "Digite o endereço completo",
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                const CustomForm(
+                  label: "Data de Nascimento",
+                  iconeform: Icons.date_range,
+                  textoindicativo: "Digite a data de nascimento",
+                ),
+                const SizedBox(height: 30),
+                SizedBox(
+                  width: double.infinity,
+                  height: 40,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (formkey.currentState!.validate()) {
+                        formkey.currentState!.save();
+                      }
+                    },
+                    child: const Text(
+                      "Salvar",
+                      style: TextStyle(fontSize: 20),
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(height: 20),
-              SizedBox(
-                width: double.infinity,
-                height: 40,
-                child: ElevatedButton(
-                  onPressed: null,
-                  child: Text(
-                    "Limpar",
-                    style: TextStyle(fontSize: 20),
+                const SizedBox(height: 20),
+                SizedBox(
+                  width: double.infinity,
+                  height: 40,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      formkey.currentState?.reset();
+                    },
+                    child: const Text(
+                      "Limpar",
+                      style: TextStyle(fontSize: 20),
+                    ),
                   ),
                 ),
-              ),
-            ]),
+              ]),
+        ),
       ),
     );
   }
@@ -91,6 +101,13 @@ class CustomForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      validator: (text) {
+        if (text == null || text.isEmpty) {
+          return "Esse campo não pode ser vazio !";
+        }
+        return null;
+      },
+      onSaved: (text) {},
       autofocus: true,
       decoration: InputDecoration(
         labelText: label,
