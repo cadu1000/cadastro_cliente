@@ -17,8 +17,7 @@ class _HomePageState extends State<HomePage> {
         leading: const Icon(Icons.add_alert),
         title: const Text("Atendimento domicilar"),
         // ignore: todo
-        backgroundColor:
-            Colors.purpleAccent, // TODO: a cor tem que vir de uma funçao !!
+        backgroundColor: Colors.purpleAccent,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -33,7 +32,7 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Register()),
+                      MaterialPageRoute(builder: (context) => const Register()),
                     );
                   },
                   style: ButtonStyle(
