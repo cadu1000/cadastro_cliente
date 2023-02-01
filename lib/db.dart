@@ -40,7 +40,7 @@ class DB {
       nome TEXT,
       celular TEXT,
       endereco TEXT,
-      dt_nasc INT
+      dt_nasc TEXT
     )
   ''';
 }

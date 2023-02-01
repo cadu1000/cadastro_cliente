@@ -8,7 +8,7 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  get controle => TextEditingController();
+  //get controle => TextEditingController();
   final formkey = GlobalKey<FormState>();
 
   @override
@@ -20,68 +20,59 @@ class _RegisterState extends State<Register> {
       body: Form(
         key: formkey,
         child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-              //mainAxisAlignment: MainAxisAlignment.start,
-              //crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const CustomForm(
-                  label: "Nome",
-                  iconeform: Icons.person,
-                  textoindicativo: "Digite o nome",
-                ),
-                const SizedBox(height: 20),
-                const CustomForm(
-                  label: "Celular",
-                  iconeform: Icons.phone_android,
-                  textoindicativo: "Digite o celular (48999999999)",
-                ),
-                const SizedBox(height: 20),
-                const CustomForm(
-                  label: "Endereço",
-                  iconeform: Icons.home,
-                  textoindicativo: "Digite o endereço completo",
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const CustomForm(
-                  label: "Data de Nascimento",
-                  iconeform: Icons.date_range,
-                  textoindicativo: "Digite a data de nascimento",
-                ),
-                const SizedBox(height: 30),
-                SizedBox(
-                  width: double.infinity,
-                  height: 40,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if (formkey.currentState!.validate()) {
-                        formkey.currentState!.save();
-                      }
-                    },
-                    child: const Text(
-                      "Salvar",
-                      style: TextStyle(fontSize: 20),
-                    ),
+          padding: const EdgeInsets.all(20),
+          child: SingleChildScrollView(
+            child: Column(
+
+                //mainAxisAlignment: MainAxisAlignment.start,
+                //crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: const [
+                  CustomForm(
+                    label: "Nome",
+                    iconeform: Icons.person,
+                    textoindicativo: "Digite o nome",
+                    //qtdecaracteres: 50,
                   ),
-                ),
-                const SizedBox(height: 20),
-                SizedBox(
-                  width: double.infinity,
-                  height: 40,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      formkey.currentState?.reset();
-                    },
-                    child: const Text(
-                      "Limpar",
-                      style: TextStyle(fontSize: 20),
-                    ),
+                  SizedBox(height: 20),
+                  CustomForm(
+                    label: "Celular",
+                    iconeform: Icons.phone_android,
+                    textoindicativo: "Digite o celular 48999999999",
+                    tipoteclado: TextInputType.number,
+                    //qtdecaracteres: 11,
                   ),
-                ),
-              ]),
+                  SizedBox(height: 20),
+                  CustomForm(
+                    label: "Endereço",
+                    iconeform: Icons.home,
+                    textoindicativo: "Digite o endereço completo",
+                    //qtdecaracteres: 50,
+                  ),
+                  SizedBox(height: 20),
+                  CustomForm(
+                    label: "Data de Nascimento",
+                    iconeform: Icons.date_range,
+                    textoindicativo: "Digite a data de nascimento",
+                    //qtdecaracteres: 10,
+                  ),
+                  SizedBox(height: 20),
+                  CustomForm(
+                    label: "Notas sobre o cliente",
+                    iconeform: Icons.notes_sharp,
+                    textoindicativo: "Notas sobre o cliente",
+                    qtdelinhas: 4,
+                    qtdecaracteres: 250,
+                  ),
+                ]),
+          ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Add your onPressed code here!
+        },
+        backgroundColor: Colors.lightBlue,
+        child: const Icon(Icons.save),
       ),
     );
   }
@@ -95,8 +86,18 @@ class CustomForm extends StatelessWidget {
   final String label;
   final IconData? iconeform;
   final String? textoindicativo;
-  const CustomForm(
-      {super.key, required this.label, this.iconeform, this.textoindicativo});
+  final int? qtdelinhas;
+  final int? qtdecaracteres;
+  final TextInputType? tipoteclado;
+  const CustomForm({
+    super.key,
+    required this.label,
+    this.iconeform,
+    this.textoindicativo,
+    this.qtdelinhas,
+    this.qtdecaracteres,
+    this.tipoteclado,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -109,6 +110,9 @@ class CustomForm extends StatelessWidget {
       },
       onSaved: (text) {},
       autofocus: true,
+      maxLines: qtdelinhas,
+      maxLength: qtdecaracteres,
+      keyboardType: tipoteclado,
       decoration: InputDecoration(
         labelText: label,
         prefixIcon: iconeform == null ? null : Icon(iconeform),
