@@ -1,36 +1,40 @@
 class Clientes {
-  String? id;
+  int? id;
   String? nome;
   String? celular;
   String? endereco;
   String? dtnasc;
-  bool? keepOn;
+  String? notas;
 
-  Clientes(
-      {this.id,
-      this.nome,
-      this.celular,
-      this.endereco,
-      this.dtnasc,
-      this.keepOn});
+  Clientes({
+    this.id,
+    required this.nome,
+    required this.celular,
+    required this.endereco,
+    required this.dtnasc,
+    required this.notas,
+  });
 
-  Clientes.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    nome = json['nome'];
-    celular = json['celular'];
-    endereco = json['endereco'];
-    dtnasc = json['dtnasc'];
-    keepOn = json['keepOn'];
+  // MÉTODO QUE CONVERTE string para map
+  Map<String, dynamic> toMap() {
+    final map = <String, dynamic>{
+      'id': id,
+      'nome': nome,
+      'celular': celular,
+      'endereco': endereco,
+      'dtnasc': dtnasc,
+      'notas': notas,
+    };
+
+    return map;
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['nome'] = nome;
-    data['celular'] = celular;
-    data['endereco'] = endereco;
-    data['dtnasc'] = dtnasc;
-    data['keepOn'] = keepOn;
-    return data;
+  Clientes.fromMap(Map<String, dynamic> map) {
+    id = map['id'];
+    nome = map['nome'];
+    celular = map['celular'];
+    endereco = map['endereco'];
+    dtnasc = map['dtnasc'];
+    notas = map['notas'];
   }
 }
